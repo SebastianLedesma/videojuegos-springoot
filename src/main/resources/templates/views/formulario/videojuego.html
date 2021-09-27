@@ -31,12 +31,12 @@
 								</div>
 								<div class="form-group col-md-12">
 										<label for="archivo" class="form-label">Imagen:</label>
-										<input type="file" class="form-control" name="archivo" id="archivo">
-										<div class="text-danger" th:if="${imagenError}" th:text="${imagenError}"></div>
+										<input type="text" class="form-control" th:field="*{imagen}">
+										<div class="text-danger" th:if="${#fields.hasErrors('imagen')}" th:errors="*{imagen}"></div>
 								</div>
-								<div class="col-md-12">
-										<input type="hidden" class="form-control" th:field="*{imagen}" name="imagen" id="imagen">
-								</div>
+								<!-- <div class="col-md-12">
+										<input type="hidden" class="form-control" th:field="*{imagen}">
+								</div> -->
 								<div class="form-group col-md-3">
 										<label for="precio">Precio:</label>
 										<input type="number" class="form-control" th:field="*{precio}">

@@ -114,10 +114,9 @@ public class VideoJuegoController {
 		}
 	}
 	
-	
+	//@RequestParam("archivo")MultipartFile archivo,
 	@PostMapping("/formulario/videojuego/{id}")
-	public String guardarVideJuegos(@RequestParam("archivo")MultipartFile archivo,
-									@Valid @ModelAttribute("videojuego") VideoJuego videojuego,
+	public String guardarVideJuegos(@Valid @ModelAttribute("videojuego") VideoJuego videojuego,
 									BindingResult results,
 									Model model,
 									@PathVariable("id")Long id) {
@@ -133,14 +132,15 @@ public class VideoJuegoController {
 			/*Path ruta =Paths.get("src/main/resources/static/imagenes");
 			String rutaAbsoluta = ruta.toFile().getAbsolutePath();
 			Path rutaCompleta = Paths.get(rutaAbsoluta + "//"+ archivo.getOriginalFilename());*/
-			String ruta = "src/main/resources/static/imagenes";
+			
+			/*String ruta = "src/main/resources/static/imagenes";
 			int index = archivo.getOriginalFilename().indexOf(".");
 			String extension = "."+archivo.getOriginalFilename().substring(index + 1);
 			String nombreFoto = Calendar.getInstance().getTimeInMillis()+extension;
-			Path rutaCompleta = id != 0 ? Paths.get(ruta + "//"+videojuego.getImagen()) : Paths.get(ruta+"//"+nombreFoto);
+			Path rutaCompleta = id != 0 ? Paths.get(ruta + "//"+videojuego.getImagen()) : Paths.get(ruta+"//"+nombreFoto);*/
 			if(id == 0) {
 				
-				if(archivo.isEmpty()) {
+				/*if(archivo.isEmpty()) {
 					model.addAttribute("imagenError", "Se requiere una imagen para el juego.");
 					return "views/formulario/videojuego";
 				}
@@ -156,10 +156,10 @@ public class VideoJuegoController {
 				}
 				
 				Files.write(rutaCompleta, archivo.getBytes());
-				videojuego.setImagen(nombreFoto);
+				videojuego.setImagen(nombreFoto);*/
 				this.videoJuegoService.save(videojuego);
 			}else {
-				if(!archivo.isEmpty()) {
+				/*if(!archivo.isEmpty()) {
 					if(!this.validarExtension(archivo)) {
 						model.addAttribute("imagenError", "La extensión no es válida.");
 						return "views/formulario/videojuego";
@@ -171,7 +171,7 @@ public class VideoJuegoController {
 					}
 					
 					Files.write(rutaCompleta, archivo.getBytes());
-				}
+				}*/
 				this.videoJuegoService.update(videojuego, id);
 			}
 			return "redirect:/api/crud";

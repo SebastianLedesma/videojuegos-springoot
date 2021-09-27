@@ -43,6 +43,7 @@ public class VideoJuego {
 	@Size(min=5,max=150,message="La descripcion debe tener entre 5 y 150 caracteres.")
 	private String descripcion;
 	
+	@NotEmpty(message="Debe agregar el link de la imagen del juego.")
 	private String imagen;
 	
 	@Min(value=10,message="El precio del juego debe ser como minimo 10.")
