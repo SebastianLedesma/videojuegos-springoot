@@ -114,7 +114,7 @@ public class VideoJuegoController {
 		}
 	}
 	
-	//@RequestParam("archivo")MultipartFile archivo,
+	
 	@PostMapping("/formulario/videojuego/{id}")
 	public String guardarVideJuegos(@Valid @ModelAttribute("videojuego") VideoJuego videojuego,
 									BindingResult results,
@@ -129,49 +129,9 @@ public class VideoJuegoController {
 				return "views/formulario/videojuego";
 			}
 			
-			/*Path ruta =Paths.get("src/main/resources/static/imagenes");
-			String rutaAbsoluta = ruta.toFile().getAbsolutePath();
-			Path rutaCompleta = Paths.get(rutaAbsoluta + "//"+ archivo.getOriginalFilename());*/
-			
-			/*String ruta = "src/main/resources/static/imagenes";
-			int index = archivo.getOriginalFilename().indexOf(".");
-			String extension = "."+archivo.getOriginalFilename().substring(index + 1);
-			String nombreFoto = Calendar.getInstance().getTimeInMillis()+extension;
-			Path rutaCompleta = id != 0 ? Paths.get(ruta + "//"+videojuego.getImagen()) : Paths.get(ruta+"//"+nombreFoto);*/
 			if(id == 0) {
-				
-				/*if(archivo.isEmpty()) {
-					model.addAttribute("imagenError", "Se requiere una imagen para el juego.");
-					return "views/formulario/videojuego";
-				}
-				
-				if(!this.validarExtension(archivo)) {
-					model.addAttribute("imagenError", "La extensión no es válida.");
-					return "views/formulario/videojuego";
-				}
-				
-				if(archivo.getSize() >= 15000000) {
-					model.addAttribute("imagenError", "El peso de la imagen debe ser menor a 15MB");
-					return "views/formulario/videojuego";
-				}
-				
-				Files.write(rutaCompleta, archivo.getBytes());
-				videojuego.setImagen(nombreFoto);*/
 				this.videoJuegoService.save(videojuego);
 			}else {
-				/*if(!archivo.isEmpty()) {
-					if(!this.validarExtension(archivo)) {
-						model.addAttribute("imagenError", "La extensión no es válida.");
-						return "views/formulario/videojuego";
-					}
-					
-					if(archivo.getSize() > 15000000) {
-						model.addAttribute("imagenError", "El peso de la imagen debe ser menor a 15MB");
-						return "views/formulario/videojuego";
-					}
-					
-					Files.write(rutaCompleta, archivo.getBytes());
-				}*/
 				this.videoJuegoService.update(videojuego, id);
 			}
 			return "redirect:/api/crud";
@@ -206,13 +166,4 @@ public class VideoJuegoController {
 		}
 	}
 	
-	
-	public boolean validarExtension(MultipartFile archivo) {
-		try {
-			ImageIO.read(archivo.getInputStream()).toString();
-			return true;
-		}catch(Exception ex) {
-			return false;
-		}
-	}
 }
